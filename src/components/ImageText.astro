@@ -31,9 +31,13 @@ const parsedContent = parseContent(content)
 				<AstroImage
 					src={image.url}
 					alt={image.alt}
-					class={`parallax-image-${isImageLeft ? 'left' : 'right'} relative z-10 h-full w-full object-cover shadow-lg`}
+					class={`parallax-image-${isImageLeft ? 'left' : 'right'} relative z-10 h-full w-full object-cover shadow-xl`}
 					width={1000}
 					height={1000}
+					widths={[360, 540, 720, 900]}
+					sizes={`(max-width: 360px) 360px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 900px`}
+					fetchpriority="low"
+					loading="lazy"
 				/>
 			</div>
 			<div
@@ -46,7 +50,7 @@ const parsedContent = parseContent(content)
 						<Fragment set:html={parsedContent} />
 					</div>
 					<hr
-						class={classNames('border-primary absolute -bottom-20 w-full', {
+						class={classNames('border-primary absolute -bottom-10 w-full', {
 							'left-0 border-secondary': !isImageLeft
 						})}
 					/>
