@@ -1,0 +1,12 @@
+---
+import type { Blocks } from '../utils/types'
+import classNames from 'classnames'
+import ImageText from './ImageText.astro'
+const props = Astro.props
+---
+
+{
+	Object.values(props).map((block: Blocks, index: number) => {
+		return <ImageText isImageLeft={index % 2 === 0} {...block} />
+	})
+}

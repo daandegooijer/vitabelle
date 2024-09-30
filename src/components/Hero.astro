@@ -1,0 +1,58 @@
+---
+import { Image, getImage } from 'astro:assets'
+import type { Hero } from '../utils/types'
+import Button from './Button.astro'
+const { image, first_title, link } = Astro.props as Hero
+import myBackground from '../assets/warm-water-with-lemon.jpg'
+const healthyHero = await getImage({ src: myBackground, format: 'webp' })
+---
+
+<div
+	class="flex h-auto flex-col overflow-hidden md:h-[450px] md:flex-row lg:h-[700px] 2xl:h-[calc(100vh-112px)]"
+>
+	<!-- Left Image -->
+	<div
+		class="relative h-1/2 w-full before:absolute before:inset-0 before:z-10 before:bg-white/30 md:h-full md:w-1/2"
+	>
+		<Image
+			src={healthyHero.src}
+			alt="Healthy"
+			width={2000}
+			height={980}
+			class="hero-image h-full w-full object-cover"
+		/>
+	</div>
+
+	<!-- Right Image -->
+	<div class="relative h-1/2 w-full md:h-full md:w-1/2">
+		<Image
+			src={image.url}
+			widths={[240, 540, 720, 1400]}
+			sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 1400px`}
+			alt={image.alt}
+			width={1470}
+			height={980}
+			class="hero-image-2 h-full w-full object-cover"
+		/>
+	</div>
+
+	<!-- Centered Jumbotron -->
+	<div class="absolute inset-0 z-20 flex items-center justify-center">
+		<div class="max-w-md bg-white/90 p-8 text-center md:p-12">
+			<h1 class="mb-4 font-serif text-3xl md:text-4xl">
+				{first_title}
+			</h1>
+
+			<Button href={link.url} title={link.title} variant="secondary" />
+		</div>
+	</div>
+</div>
+
+<script>
+	import SimpleParallax from 'simple-parallax-js/vanilla'
+	var image = document.getElementsByClassName('hero-image')
+	var image2 = document.getElementsByClassName('hero-image-2')
+
+	new SimpleParallax(image, { delay: 1, scale: 1.15, orientation: 'down left' })
+	new SimpleParallax(image2, { scale: 1.1, delay: 1, orientation: 'up right' })
+</script>

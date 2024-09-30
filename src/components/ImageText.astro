@@ -1,0 +1,66 @@
+---
+import classNames from 'classnames'
+import { parseContent } from '../utils/wordpress'
+import type { Image } from '../utils/types'
+import { Image as AstroImage } from 'astro:assets'
+interface Props {
+	isImageLeft: boolean
+	title: string
+	content: string
+	image: Image
+}
+
+const { isImageLeft = true, image, title, content } = Astro.props
+
+const parsedContent = parseContent(content)
+---
+
+<section class="relative my-20 overflow-hidden">
+	<div class="container mx-auto px-4 py-12">
+		<div class="flex flex-col items-center gap-8 lg:flex-row">
+			<div
+				class={`relative w-full lg:w-1/2 aspect-[4/3] ${isImageLeft ? 'order-1 lg:order-1' : 'order-2 lg:order-2'}`}
+			>
+				<div
+					class={classNames(' absolute inset-0 -translate-y-10 translate-x-8 transform', {
+						'bg-primary': isImageLeft,
+						'bg-secondary': !isImageLeft
+					})}
+				>
+				</div>
+				<AstroImage
+					src={image.url}
+					alt={image.alt}
+					class={`parallax-image-${isImageLeft ? 'left' : 'right'} relative z-10 h-full w-full object-cover shadow-lg`}
+					width={1000}
+					height={1000}
+				/>
+			</div>
+			<div
+				class={`w-full lg:w-1/2 space-y-6 ${isImageLeft ? 'order-2 lg:order-2' : 'order-1 lg:order-1'}`}
+			>
+				<div class={classNames('w-2/3 relative', { 'ml-auto': isImageLeft })}>
+					<div class="prose">
+						<h2 class="text-3xl">{title}</h2>
+
+						<Fragment set:html={parsedContent} />
+					</div>
+					<hr
+						class={classNames('border-primary absolute -bottom-20 w-full', {
+							'left-0 border-secondary': !isImageLeft
+						})}
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import SimpleParallax from 'simple-parallax-js/vanilla'
+	var image = document.getElementsByClassName('parallax-image-left')
+	var image2 = document.getElementsByClassName('parallax-image-right')
+
+	new SimpleParallax(image, { overflow: true, scale: 1.1, delay: 1, orientation: 'down left' })
+	new SimpleParallax(image2, { overflow: true, scale: 1.1, delay: 1, orientation: 'up right' })
+</script>
