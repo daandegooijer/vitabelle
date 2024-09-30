@@ -14,21 +14,21 @@ const navigation = [
 ]
 ---
 
-<footer class="border-primary-400 border-t bg-white">
+<footer class="border-t border-primary-400 bg-white">
 	<div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
 		<div class="flex justify-center space-x-6 md:order-2">
 			{
 				navigation.map((item) => (
 					<a href={item.href} class="text-gray-400 hover:text-gray-500">
 						<span class="sr-only">{item.name}</span>
-						<img src={`/src/assets/${item.icon}`} alt={item.name} class="h-6" />
+						<img src={`/${item.icon}`} alt={item.name} class="h-6" />
 					</a>
 				))
 			}
 		</div>
 		<div class="flex items-center gap-x-4">
-			<img src="/src/assets/logo.svg" alt="Logo" class="h-20" />
-			<img src="/src/assets/bgn-logo.svg" alt="Vita Belle Coaching" class="h-10" />
+			<img src="/logo.svg" alt="Logo" class="h-20" />
+			<img src="/bgn-logo.svg" alt="Vita Belle Coaching" class="h-10" />
 		</div>
 		<div class="mt-8 md:order-1 md:mt-0">
 			<p class="text-center text-sm leading-5 text-gray-500 lg:text-left">
